@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    public PlayerWeaponSystem weaponSystem;
     public Camera myCamera;
     public Transform myEyeTransform;
+    public Transform myFeetTransform;
     public Vector3 lookingdir;
 
     float mouseMoveX = 0;
@@ -22,7 +24,7 @@ public class PlayerInput : MonoBehaviour
     public float moveSpeed;
     public float sprintIncreaseValue;
     public float jumpPower;
-    public bool canJump;
+    public bool isGrond;
 
     private void Awake()
     {
@@ -32,7 +34,8 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         Move();
-        if (canJump && Input.GetKeyDown(jumpKey))
+        CheckFeet();
+        if (isGrond && Input.GetKeyDown(jumpKey))
         {
             Jump();
         }
@@ -40,9 +43,23 @@ public class PlayerInput : MonoBehaviour
         MouseMove();
     }
 
+    void CheckFeet()
+    {
+        Ray ray = new Ray(myFeetTransform.position, Vector3.down);
+        RaycastHit hit;
+        int mask = 1 << LayerMask.NameToLayer("Ground");
+
+        if (Physics.Raycast(ray, out hit, 0.1f, mask))
+        {
+            isGrond = true;
+            return;
+        }
+
+        isGrond = false;
+    }
+
     void MouseMove()
     {
-
         mouseMoveX += Input.GetAxis("Mouse X");
         mouseMoveY += -Input.GetAxis("Mouse Y");
         mouseMoveY = Mathf.Clamp(mouseMoveY, -60f, 60f);
@@ -59,13 +76,17 @@ public class PlayerInput : MonoBehaviour
 
         myCamera.transform.localEulerAngles = mouseMoveVector;
         transform.localRotation = new Quaternion(0, myCamera.transform.localRotation.y, 0, myCamera.transform.localRotation.w);
+
         lookingdir = myCamera.transform.localRotation * Vector3.forward;
         myCamera.transform.position = myEyeTransform.position;
+
+        Quaternion newQua = Quaternion.LookRotation(lookingdir.normalized);
+        weaponSystem.inUseWeapon.transform.rotation = newQua;
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawRay(myEyeTransform.position, lookingdir * 5);
+        Gizmos.DrawRay(myEyeTransform.position, lookingdir * 10);
     }
 
     void Move()
