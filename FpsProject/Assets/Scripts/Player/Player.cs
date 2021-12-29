@@ -41,6 +41,11 @@ public class Player : MonoBehaviour
         }
 
         MouseMove();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            weaponSystem.Trigger(true);
+        }
     }
 
     void CheckFeet()
@@ -81,7 +86,7 @@ public class Player : MonoBehaviour
         myCamera.transform.position = myEyeTransform.position;
 
         Quaternion newQua = Quaternion.LookRotation(lookingdir.normalized);
-        weaponSystem.inUseWeapon.transform.rotation = newQua;
+        weaponSystem.inUseWeapon.gameObject.transform.rotation = newQua;
     }
 
     void OnDrawGizmosSelected()

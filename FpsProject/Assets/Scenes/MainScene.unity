@@ -169,12 +169,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3471932babc54f84dac81acaaf6d2eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 1809918792}
+  mySystem: {fileID: 0}
   bulletPrefeb: {fileID: 2957631509508956888, guid: c7b7e664b6ab458408ee95b67484bfb4, type: 3}
   inUseBullets: []
   myPoint: {x: 0.6, y: 0.75, z: 1.3}
   muzzlePoint: {x: 0, y: 0, z: 0}
+  weaponType: 0
   bulletSpeed: 0
+  delay: 0
+  time: 0
 --- !u!23 &178016636
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -939,9 +942,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1cf5977f98da04d8f2c4bdd35e8384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainWeapon: {fileID: 178016633}
+  mainWeapon: {fileID: 178016635}
   secondaryWeapon: {fileID: 0}
   inUseWeapon: {fileID: 0}
+  targetDir: {x: 0, y: 0, z: 0}
 --- !u!1 &1942647789
 GameObject:
   m_ObjectHideFlags: 0

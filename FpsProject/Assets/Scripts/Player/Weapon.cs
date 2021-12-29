@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject owner;
+    public PlayerWeaponSystem mySystem;
     public GameObject bulletPrefeb;
     public Queue<GameObject> readyBullets;
     public List<GameObject> inUseBullets;
@@ -13,7 +13,18 @@ public class Weapon : MonoBehaviour
     public Vector3 myPoint;
     public Vector3 muzzlePoint;
 
+    public enum WeaponType
+    {
+        SniperRifle,
+        AutomaticRifle,
+        Shotgun,
+        Pistol
+    }
+    public WeaponType weaponType;
     public float bulletSpeed;
+    public float delay;
+    public float time;
+    bool triggerOn;
 
     private void Awake()
     {
@@ -33,9 +44,9 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void Trigger()
+    public virtual void Trigger(bool value)
     {
-
+        triggerOn = value;
     }
 
     public void Fire(Vector3 normalDir)

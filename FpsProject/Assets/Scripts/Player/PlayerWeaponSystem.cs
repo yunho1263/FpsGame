@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class PlayerWeaponSystem : MonoBehaviour
 {
-    public GameObject mainWeapon;
-    public GameObject secondaryWeapon;
+    public Weapon mainWeapon;
+    public Weapon secondaryWeapon;
 
-    public GameObject inUseWeapon;
+    public Weapon inUseWeapon;
+    public Vector3 targetDir;
 
     private void Awake()
     {
         Replacement(1);
     }
 
+    private void Update()
+    {
+        inUseWeapon.GetComponent<Weapon>().time += Time.deltaTime;
+    }
+
     public void Replacement(int num)
     {
         if (inUseWeapon != null)
         {
-            inUseWeapon.SetActive(false);
+            inUseWeapon.gameObject.SetActive(false);
         }
         if (num == 1)
         {
@@ -29,11 +35,11 @@ public class PlayerWeaponSystem : MonoBehaviour
             inUseWeapon = secondaryWeapon;
         }
         inUseWeapon.transform.localPosition = inUseWeapon.GetComponent<Weapon>().myPoint;
-        inUseWeapon.SetActive(true);
+        inUseWeapon.gameObject.SetActive(true);
     }
 
-    public void Trigger(Vector3 normalDir)
+    public void Trigger(bool value)
     {
-        inUseWeapon.GetComponent<Weapon>().Fire(normalDir);
+        inUseWeapon.GetComponent<Weapon>().Trigger(value);
     }
 }
