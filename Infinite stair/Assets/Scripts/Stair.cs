@@ -11,7 +11,7 @@ public class Stair : MonoBehaviour
     {
         float val = Random.value;
 
-        if (val <= 0.4f)
+        if (val <= 0.3f)
         {
             if (preDir)
             {
