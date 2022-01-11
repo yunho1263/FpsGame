@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public int score;
     public float energy;
+    public int enegyLassCycle;
+    public float enegyLassAmount;
     public bool isGameOver;
 
     private void Awake()
@@ -28,31 +31,67 @@ public class GameManager : MonoBehaviour
         if (GameManager.Instance == null)
         {
             instance = this;
-        } else Destroy(gameObject);
+        }
+        else Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-    }
-
-    public void LoadIngameScene()
-    {
-        SceneManager.LoadScene("IngameScene");
     }
 
     public void GameStart()
     {
         score = 0;
         energy = 100;
-        player = Instantiate(playerCharPrefebs[playerChIndex], new Vector3(0, 0.2f, 0), Quaternion.identity).GetComponent<Player>();
+        stairframe.steppingOnStair = -1;
+        isGameOver = false;
+        uiManager.UpdateScoreText(score);
+        uiManager.UpdateEnegybar(energy);
+        if (player == null)
+        {
+            player = Instantiate(playerCharPrefebs[playerChIndex], Vector3.zero, Quaternion.identity).GetComponent<Player>();
+        }
+        player.isFalling = false;
+        player.animator.SetTrigger("gameStart");
+        EnergyAsync();
     }
 
-    IEnumerator GameOver()
+    public void ResetGame()
+    {
+        stairframe.ResetStairs();
+        player.transform.position = Vector3.zero;
+        player.TurnAround(1);
+        mainCamera.ResetPosition();
+        GameStart();
+    }
+
+    async void GameOver()
     {
         isGameOver = true;
         player.animator.SetTrigger("gameOver");
 
-        yield return new WaitForSeconds(1f);
-
+        await Task.Delay(1000);
         player.isFalling = true;
+
+        await Task.Delay(1000);
+        uiManager.gameOverUi.SetActive(true);
+    }
+
+    async void EnergyAsync()
+    {
+        while (true)
+        {
+            energy -= enegyLassAmount;
+            if (energy <= 0)
+            {
+                energy = 0;
+                GameOver();
+            }
+            uiManager.UpdateEnegybar(energy);
+            if (isGameOver)
+            {
+                break;
+            }
+            await Task.Delay(enegyLassCycle);
+        }
     }
 
     public void MoveCalculation()
@@ -62,7 +101,8 @@ public class GameManager : MonoBehaviour
         if ((stairframe.stairs[stairframe.steppingOnStair].isRight && player.dir != 1) ||
             (!stairframe.stairs[stairframe.steppingOnStair].isRight && player.dir != -1))
         {
-            StartCoroutine(GameOver());
+            GameOver();
+            return;
         }
 
         stairframe.Replace();
@@ -75,6 +115,16 @@ public class GameManager : MonoBehaviour
         }
 
         score++;
+        energy += 2.2f;
+        if (energy >= 100)
+        {
+            energy = 100;
+        }
         uiManager.UpdateScoreText(score);
+    }
+
+    public void SetPlayerCharIndex(int value)
+    {
+        playerChIndex = value;
     }
 }

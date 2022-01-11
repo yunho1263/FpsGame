@@ -12,7 +12,6 @@ public class Stairframe : MonoBehaviour
     {
         GameManager.Instance.stairframe = this;
         MakeStairs();
-        steppingOnStair = -1;
         GameManager.Instance.GameStart();
     }
 
@@ -27,7 +26,19 @@ public class Stairframe : MonoBehaviour
         }
 
         stairs[0].isRight = true;
-        stairs[0].SetPosition(new Vector3(0, -0.6f, 0));
+        stairs[0].SetPosition(new Vector3(0, -0.8f, 0));
+
+        for (int i = 1; i < 50; i++)
+        {
+            stairs[i].SetDirection(stairs[i - 1].isRight);
+            stairs[i].SetPosition(stairs[i - 1].gameObject.transform.position);
+        }
+    }
+
+    public void ResetStairs()
+    {
+        stairs[0].isRight = true;
+        stairs[0].SetPosition(new Vector3(0, -0.8f, 0));
 
         for (int i = 1; i < 50; i++)
         {
