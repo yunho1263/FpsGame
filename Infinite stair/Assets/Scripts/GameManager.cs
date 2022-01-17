@@ -12,13 +12,15 @@ public class GameManager : MonoBehaviour
         get { return instance; }
     }
 
+    public UserData userdata;
+    public SaveFileRW saveFileRW;
+
     public Player player;
     public Stairframe stairframe;
     public MainCamera mainCamera;
     public UiManager uiManager;
 
     public GameObject[] playerCharPrefebs;
-    public int playerChIndex;
 
     public int score;
     public float energy;
@@ -31,10 +33,13 @@ public class GameManager : MonoBehaviour
         if (GameManager.Instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        userdata = new UserData();
+        saveFileRW = GetComponent<SaveFileRW>();
+        saveFileRW.ReadFile();
     }
 
     public void GameStart()
@@ -47,7 +52,7 @@ public class GameManager : MonoBehaviour
         uiManager.UpdateEnegybar(energy);
         if (player == null)
         {
-            player = Instantiate(playerCharPrefebs[playerChIndex], Vector3.zero, Quaternion.identity).GetComponent<Player>();
+            player = Instantiate(playerCharPrefebs[userdata.CurCharIndex], Vector3.zero, Quaternion.identity).GetComponent<Player>();
         }
         player.isFalling = false;
         player.animator.SetTrigger("gameStart");
@@ -65,6 +70,14 @@ public class GameManager : MonoBehaviour
 
     async void GameOver()
     {
+        if (userdata.maxScore < score)
+        {
+            userdata.maxScore = score;
+        }
+        saveFileRW.WriteFile();
+
+        uiManager.UpdateScoreBoards(score, userdata.maxScore);
+
         isGameOver = true;
         player.animator.SetTrigger("gameOver");
 
@@ -125,6 +138,7 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerCharIndex(int value)
     {
-        playerChIndex = value;
+        userdata.CurCharIndex = value;
+        saveFileRW.WriteFile();
     }
 }

@@ -9,6 +9,8 @@ public class UiManager : MonoBehaviour
     public Text scoreText;
     public Image enegybar;
     public GameObject gameOverUi;
+    public Text scoreBoard;
+    public Text maxScoreBoard;
 
     private void Awake()
     {
@@ -23,6 +25,12 @@ public class UiManager : MonoBehaviour
     public void UpdateEnegybar(float value)
     {
         enegybar.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value * 5);
+    }
+
+    public void UpdateScoreBoards(int value1, int value2)
+    {
+        scoreBoard.text = value1.ToString() + "점";
+        maxScoreBoard.text = "최고기록 : " + value2.ToString();
     }
 
     public void Replay()

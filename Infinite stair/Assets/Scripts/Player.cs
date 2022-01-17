@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
         if (isFalling)
         {
             transform.Translate(new Vector3(0, -0.02f, 0));
+            if (transform.position.y <= -10)
+            {
+                isFalling = false;
+            }
         }
     }
 

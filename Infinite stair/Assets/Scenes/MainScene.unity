@@ -597,6 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 353146529}
   - component: {fileID: 353146528}
+  - component: {fileID: 353146530}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -616,6 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27c00596bacc1b41a5824aa9a479aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveFileRW: {fileID: 0}
   player: {fileID: 0}
   stairframe: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -624,7 +626,6 @@ MonoBehaviour:
   - {fileID: 2767608483826930776, guid: 0eb6c47353e68864a89a4e2be81d81c9, type: 3}
   - {fileID: 5551449749845403924, guid: e994a80f7118bc04da3700c2000fa602, type: 3}
   - {fileID: 2704565388061943570, guid: 47b7c2f003970a649a9377e62d1aa878, type: 3}
-  playerChIndex: 0
   score: 0
   energy: 0
   enegyLassCycle: 10
@@ -644,6 +645,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &353146530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353146527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bc985df438ea7479ddef7810eb1026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &390861655
 GameObject:
   m_ObjectHideFlags: 0
