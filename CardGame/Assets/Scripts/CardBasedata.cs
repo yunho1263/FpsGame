@@ -14,14 +14,6 @@ public class CardBasedata : ScriptableObject
     public int Cost { get { return cost; } }
 
     [SerializeField]
-    private int att;
-    public int Att { get { return att; } }
-
-    [SerializeField]
-    private int hp;
-    public int Hp { get { return hp; } }
-
-    [SerializeField]
     private string dis;
     public string Dis { get { return dis; } }
 

@@ -3,25 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class CardVisual : MonoBehaviour
+public class MinionCardVisual : CardVisual
 {
-    public Card myCard;
-    public CardBasedata basedata;
+    public TextMeshPro hp;
+    public TextMeshPro att;
 
-    public TextMeshPro cost;
-    
-    public TextMeshPro cardName;
-    public TextMeshPro dis;
+    public new MinionCardBasedata basedata;
 
-    public SpriteRenderer spriteRenderer;
-
-    private void Awake()
-    {
-        GetVisualComponent();
-        SetBaseData();
-    }
-
-    public virtual void GetVisualComponent()
+    public override void GetVisualComponent()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -42,6 +31,16 @@ public class CardVisual : MonoBehaviour
                 cost = child.GetComponent<TextMeshPro>();
             }
 
+            else if (child.name == "att")
+            {
+                att = child.GetComponent<TextMeshPro>();
+            }
+
+            else if (child.name == "hp")
+            {
+                hp = child.GetComponent<TextMeshPro>();
+            }
+
             else if (child.name == "image")
             {
                 spriteRenderer = child.GetComponent<SpriteRenderer>();
@@ -49,11 +48,11 @@ public class CardVisual : MonoBehaviour
             }
         }
     }
-    public virtual void SetBaseData()
+
+    public override void SetBaseData()
     {
-        cost.text = basedata.Cost.ToString();
-        cardName.text = basedata.CardName;
-        dis.text = basedata.Dis;
-        spriteRenderer.sprite = basedata.Image;
+        base.SetBaseData();
+        hp.text = basedata.Hp.ToString();
+        att.text = basedata.Att.ToString();
     }
 }

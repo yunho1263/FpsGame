@@ -128,7 +128,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3620152076398704090, guid: f58238eca131c22468ddb87c03f55f68, type: 3}
   m_PrefabInstance: {fileID: 3620152076863819626}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1023376051
+--- !u!114 &1023376054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,11 +137,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023376048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e7c76403ae04b409c1343d6a757909, type: 3}
+  m_Script: {fileID: 11500000, guid: b416c2fc60b13ce409cc6d1dc2875567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myCard: {fileID: 0}
-  basedata: {fileID: 11400000, guid: 478e2cca03fd5d643885c88ff68702f0, type: 2}
+  basedata: {fileID: 11400000, guid: 1cd64fe384f347944af37b4a54aa1d29, type: 2}
+  cost: {fileID: 0}
+  cardName: {fileID: 0}
+  dis: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  hp: {fileID: 0}
+  att: {fileID: 0}
+  basedata: {fileID: 0}
 --- !u!1 &1056341327
 GameObject:
   m_ObjectHideFlags: 0
