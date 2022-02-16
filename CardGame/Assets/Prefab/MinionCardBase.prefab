@@ -94,8 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3620152076398704088}
   - component: {fileID: 3620152076398704091}
+  - component: {fileID: 2396750455702119057}
   m_Layer: 0
-  m_Name: CardBase
+  m_Name: MinionCardBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,6 +140,27 @@ MonoBehaviour:
   maxHp: 0
   hp: 0
   myField: {fileID: 0}
+--- !u!114 &2396750455702119057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620152076398704090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b416c2fc60b13ce409cc6d1dc2875567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCard: {fileID: 0}
+  basedata: {fileID: 11400000, guid: 1cd64fe384f347944af37b4a54aa1d29, type: 2}
+  cost: {fileID: 0}
+  cardName: {fileID: 0}
+  dis: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  hp: {fileID: 0}
+  att: {fileID: 0}
+  basedata: {fileID: 11400000, guid: 1cd64fe384f347944af37b4a54aa1d29, type: 2}
 --- !u!1 &3620152076510265280
 GameObject:
   m_ObjectHideFlags: 0

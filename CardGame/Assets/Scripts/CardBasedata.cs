@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Card Basedata", menuName = "Scriptable Object/Card Basedata", order = int.MaxValue)]
 public class CardBasedata : ScriptableObject
 {
+    public int cardIndex;
+
     [SerializeField]
     private CardType type;
     public CardType Type { get { return type; } }
